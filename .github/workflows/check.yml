@@ -1,0 +1,13 @@
+name: Check public disclosure examples
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the regression tests
+        run: python3 -m unittest -v
+      - name: Replay the public evidence
+        run: python3 tracker.py disclosures.json
